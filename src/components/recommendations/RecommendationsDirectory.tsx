@@ -81,24 +81,6 @@ export const RecommendationsDirectory = () => {
     setIsSearching(true);
   };
 
-  // Calculate total recommendations count
-  const calculateTotalRecommendations = () => {
-    let count = 0;
-    
-    Object.keys(recommendationsData).forEach(catKey => {
-      const categoryData = (recommendationsData as RecommendationsData)[catKey];
-      if (Array.isArray(categoryData)) {
-        count += categoryData.length;
-      } else {
-        Object.keys(categoryData).forEach(subcatKey => {
-          count += categoryData[subcatKey].length;
-        });
-      }
-    });
-    
-    return count;
-  };
-
   // Reset search
   const clearSearch = () => {
     setSearchQuery('');
@@ -185,6 +167,7 @@ export const RecommendationsDirectory = () => {
                 ) : (
                   <RecommendationsList
                     recommendations={getCurrentRecommendations()}
+                    isSearching={isSearching}
                     getCategoryName={getCategoryName}
                     getSubcategoryName={getSubcategoryName}
                   />

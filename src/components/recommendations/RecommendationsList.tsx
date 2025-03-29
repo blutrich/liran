@@ -1,15 +1,13 @@
-import React from 'react';
-import { RecommendationCard } from './RecommendationCard'
 import { Recommendation } from './data';
 
 interface RecommendationsListProps {
   recommendations: Recommendation[];
-  isSearching: boolean;
+  isSearching?: boolean;
   getCategoryName: (categoryId: string) => string;
   getSubcategoryName: (categoryId: string, subcategoryId: string) => string;
 }
 
-export const RecommendationsList = ({ recommendations, isSearching, getCategoryName, getSubcategoryName }: RecommendationsListProps) => {
+export const RecommendationsList = ({ recommendations, isSearching = false, getCategoryName, getSubcategoryName }: RecommendationsListProps) => {
   if (recommendations.length === 0) {
     return (
       <div className="p-4">
@@ -17,11 +15,11 @@ export const RecommendationsList = ({ recommendations, isSearching, getCategoryN
           <svg className="mx-auto h-12 w-12 text-gray-400" fill="none" viewBox="0 0 24 24" stroke="currentColor">
             <path strokeLinecap="round" strokeLinejoin="round" strokeWidth="2" d="M9.172 16.172a4 4 0 015.656 0M9 10h.01M15 10h.01M21 12a9 9 0 11-18 0 9 9 0 0118 0z" />
           </svg>
-          <h3 className="mt-2 text-sm font-medium text-gray-900">No recommendations found</h3>
+          <h3 className="mt-2 text-sm font-medium text-gray-900">לא נמצאו המלצות</h3>
           <p className="mt-1 text-sm text-gray-500">
             {isSearching 
-              ? "Try adjusting your search terms." 
-              : "There are no recommendations in this category yet."}
+              ? "נסה לשנות את מילות החיפוש." 
+              : "אין המלצות בקטגוריה זו עדיין."}
           </p>
         </div>
       </div>
