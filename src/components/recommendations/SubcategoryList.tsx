@@ -1,4 +1,3 @@
-import React from 'react';
 import { Subcategory } from './data';
 
 interface SubcategoryListProps {
