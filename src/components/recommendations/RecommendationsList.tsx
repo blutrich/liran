@@ -1,14 +1,6 @@
 import React from 'react';
 import { RecommendationCard } from './RecommendationCard'
-
-interface Recommendation {
-  id: number;
-  date: string;
-  sender: string;
-  message: string;
-  category?: string;
-  subcategory?: string;
-}
+import { Recommendation } from './data';
 
 interface RecommendationsListProps {
   recommendations: Recommendation[];
@@ -17,12 +9,7 @@ interface RecommendationsListProps {
   getSubcategoryName: (categoryId: string, subcategoryId: string) => string;
 }
 
-export const RecommendationsList: React.FC<RecommendationsListProps> = ({
-  recommendations,
-  isSearching,
-  getCategoryName,
-  getSubcategoryName,
-}) => {
+export const RecommendationsList = ({ recommendations, isSearching, getCategoryName, getSubcategoryName }: RecommendationsListProps) => {
   if (recommendations.length === 0) {
     return (
       <div className="p-4">
@@ -42,26 +29,36 @@ export const RecommendationsList: React.FC<RecommendationsListProps> = ({
   }
 
   return (
-    <div className="p-4">
-      <ul className="divide-y divide-gray-200">
-        {recommendations.map((recommendation) => (
-          <li key={recommendation.id} className="py-4">
-            <RecommendationCard
-              id={recommendation.id}
-              sender={recommendation.sender}
-              date={recommendation.date}
-              message={recommendation.message}
-              category={recommendation.category}
-              subcategory={recommendation.subcategory}
-              categoryName={recommendation.category ? getCategoryName(recommendation.category) : undefined}
-              subcategoryName={recommendation.category && recommendation.subcategory 
-                ? getSubcategoryName(recommendation.category, recommendation.subcategory)
-                : undefined}
-              showCategory={isSearching}
-            />
-          </li>
-        ))}
-      </ul>
+    <div className="space-y-4">
+      {recommendations.map((recommendation) => (
+        <div key={recommendation.id} className="bg-white rounded-lg shadow-sm p-4 sm:p-6 hover:shadow-md transition-shadow">
+          <div className="flex flex-col sm:flex-row sm:items-center justify-between gap-2">
+            <div className="flex items-center space-x-2">
+              <span className="text-sm text-gray-500">
+                {new Date(recommendation.date).toLocaleDateString('he-IL', {
+                  year: 'numeric',
+                  month: 'long',
+                  day: 'numeric'
+                })}
+              </span>
+              <span className="text-sm font-medium text-gray-900">{recommendation.sender}</span>
+            </div>
+            <div className="flex flex-wrap gap-2">
+              {recommendation.category && (
+                <span className="inline-flex items-center px-2.5 py-0.5 rounded-full text-xs font-medium bg-blue-100 text-blue-800">
+                  {getCategoryName(recommendation.category)}
+                </span>
+              )}
+              {recommendation.subcategory && (
+                <span className="inline-flex items-center px-2.5 py-0.5 rounded-full text-xs font-medium bg-green-100 text-green-800">
+                  {getSubcategoryName(recommendation.category!, recommendation.subcategory)}
+                </span>
+              )}
+            </div>
+          </div>
+          <p className="mt-4 text-gray-700 whitespace-pre-wrap">{recommendation.message}</p>
+        </div>
+      ))}
     </div>
   );
 }; 

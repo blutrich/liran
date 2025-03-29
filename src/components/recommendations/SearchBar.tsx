@@ -20,20 +20,22 @@ export const SearchBar = ({ searchQuery, setSearchQuery, onSearch, onClear }: Se
         value={searchQuery}
         onChange={(e) => setSearchQuery(e.target.value)}
         placeholder="חיפוש המלצות..."
-        className="w-full px-4 py-2 border border-gray-300 rounded-md focus:outline-none focus:ring-2 focus:ring-blue-500 focus:border-transparent"
+        className="w-full px-4 py-2 text-right border border-gray-300 rounded-md focus:outline-none focus:ring-2 focus:ring-blue-500 focus:border-transparent text-sm sm:text-base"
       />
       {searchQuery && (
         <button
           type="button"
           onClick={onClear}
-          className="absolute left-3 top-1/2 transform -translate-y-1/2 text-gray-400 hover:text-gray-600"
+          className="absolute left-3 top-1/2 transform -translate-y-1/2 text-gray-400 hover:text-gray-600 p-1"
+          aria-label="Clear search"
         >
           ✕
         </button>
       )}
       <button
         type="submit"
-        className="absolute right-3 top-1/2 transform -translate-y-1/2 text-gray-400 hover:text-gray-600"
+        className="absolute right-3 top-1/2 transform -translate-y-1/2 text-gray-400 hover:text-gray-600 p-1"
+        aria-label="Search"
       >
         🔍
       </button>
