@@ -1,9 +1,5 @@
 import React from 'react';
-
-interface Subcategory {
-  id: string;
-  name: string;
-}
+import { Subcategory } from './data';
 
 interface SubcategoryListProps {
   subcategories: Subcategory[];
@@ -11,34 +7,26 @@ interface SubcategoryListProps {
   onSubcategorySelect: (subcategoryId: string) => void;
 }
 
-export const SubcategoryList: React.FC<SubcategoryListProps> = ({
-  subcategories,
-  selectedSubcategory,
-  onSubcategorySelect,
-}) => {
+export const SubcategoryList = ({ subcategories, selectedSubcategory, onSubcategorySelect }: SubcategoryListProps) => {
   return (
-    <div className="mt-4 bg-white rounded-lg shadow overflow-hidden">
-      <div className="p-4 bg-gray-50 border-b border-gray-200">
-        <h2 className="font-medium text-gray-700">Subcategories</h2>
-      </div>
-      <nav className="mt-2">
-        <ul>
-          {subcategories.map((subcategory) => (
-            <li key={subcategory.id}>
-              <button
-                onClick={() => onSubcategorySelect(subcategory.id)}
-                className={`flex items-center w-full px-4 py-2 text-left ${
-                  selectedSubcategory === subcategory.id
-                    ? 'bg-blue-50 text-blue-700'
-                    : 'text-gray-700 hover:bg-gray-50'
-                }`}
-              >
-                <span className="text-sm font-medium">{subcategory.name}</span>
-              </button>
-            </li>
-          ))}
-        </ul>
-      </nav>
+    <div className="bg-white rounded-lg shadow p-4 mt-4">
+      <h3 className="text-lg font-medium text-gray-900 mb-4">תתי קטגוריות</h3>
+      <ul className="space-y-2">
+        {subcategories.map((subcategory) => (
+          <li key={subcategory.id}>
+            <button
+              onClick={() => onSubcategorySelect(subcategory.id)}
+              className={`w-full text-right px-4 py-2 rounded-md text-sm font-medium ${
+                selectedSubcategory === subcategory.id
+                  ? 'bg-blue-100 text-blue-700'
+                  : 'text-gray-700 hover:bg-gray-100'
+              }`}
+            >
+              {subcategory.name}
+            </button>
+          </li>
+        ))}
+      </ul>
     </div>
   );
 }; 

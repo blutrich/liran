@@ -202,7 +202,7 @@ export function CommunityDashboard() {
                         <Cell key={`cell-${index}`} fill={COLORS[index % COLORS.length]} />
                       ))}
                     </Pie>
-                    <Tooltip formatter={(value, name, props) => [`${value} משתמשים`, props.payload.name]} />
+                    <Tooltip formatter={(value, _, props) => [`${value} משתמשים`, props.payload.name]} />
                   </PieChart>
                 </ResponsiveContainer>
               </div>
