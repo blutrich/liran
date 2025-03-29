@@ -3,7 +3,7 @@ import { CategoryList } from './CategoryList';
 import { SubcategoryList } from './SubcategoryList';
 import { RecommendationsList } from './RecommendationsList';
 import { SearchBar } from './SearchBar';
-import { categoriesData, subcategoriesData, recommendationsData } from './data';
+import { categoriesData, subcategoriesData, recommendationsData, Category, Subcategory } from './data';
 
 // Define interfaces for our data types
 interface Recommendation {
@@ -19,13 +19,6 @@ type RecommendationsData = {
   [key: string]: {
     [key: string]: Recommendation[];
   } | Recommendation[];
-};
-
-type SubcategoriesData = {
-  [key: string]: Array<{
-    id: string;
-    name: string;
-  }>;
 };
 
 export const RecommendationsDirectory = () => {
@@ -140,7 +133,7 @@ export const RecommendationsDirectory = () => {
 
   // Helper function to get category name
   const getCategoryName = (categoryId: string): string => {
-    const category = categoriesData.find(cat => cat.id === categoryId);
+    const category = categoriesData.find((cat: Category) => cat.id === categoryId);
     return category ? category.name : 'Unknown Category';
   };
 
@@ -148,7 +141,7 @@ export const RecommendationsDirectory = () => {
   const getSubcategoryName = (categoryId: string, subcategoryId: string): string => {
     if (!subcategoriesData[categoryId]) return 'Unknown Subcategory';
     
-    const subcategory = subcategoriesData[categoryId].find(subcat => subcat.id === subcategoryId);
+    const subcategory = subcategoriesData[categoryId].find((subcat: Subcategory) => subcat.id === subcategoryId);
     return subcategory ? subcategory.name : 'Unknown Subcategory';
   };
 
