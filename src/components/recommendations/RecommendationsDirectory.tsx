@@ -1,4 +1,4 @@
-import React, { useState, useEffect } from 'react';
+import { useState } from 'react';
 import { CategoryList } from './CategoryList';
 import { SubcategoryList } from './SubcategoryList';
 import { RecommendationsList } from './RecommendationsList';
@@ -12,8 +12,21 @@ interface Recommendation {
   sender: string;
   message: string;
   category?: string;
-  subcategory?: string | null;
+  subcategory?: string;
 }
+
+type RecommendationsData = {
+  [key: string]: {
+    [key: string]: Recommendation[];
+  } | Recommendation[];
+};
+
+type SubcategoriesData = {
+  [key: string]: Array<{
+    id: string;
+    name: string;
+  }>;
+};
 
 export const RecommendationsDirectory = () => {
   // State variables for filtering and navigation
@@ -35,10 +48,26 @@ export const RecommendationsDirectory = () => {
 
     // Search through all categories and subcategories
     Object.keys(recommendationsData).forEach(catKey => {
-      if (typeof recommendationsData[catKey] === 'object' && !Array.isArray(recommendationsData[catKey])) {
+      const categoryData = (recommendationsData as RecommendationsData)[catKey];
+      if (Array.isArray(categoryData)) {
+        // For categories without subcategories
+        categoryData.forEach((recommendation: Recommendation) => {
+          if (
+            recommendation.sender.toLowerCase().includes(lowercaseQuery) ||
+            recommendation.message.toLowerCase().includes(lowercaseQuery) ||
+            recommendation.date.toLowerCase().includes(lowercaseQuery)
+          ) {
+            results.push({
+              ...recommendation,
+              category: catKey,
+              subcategory: undefined
+            });
+          }
+        });
+      } else {
         // For categories with subcategories
-        Object.keys(recommendationsData[catKey]).forEach(subcatKey => {
-          recommendationsData[catKey][subcatKey].forEach((recommendation: any) => {
+        Object.keys(categoryData).forEach(subcatKey => {
+          categoryData[subcatKey].forEach((recommendation: Recommendation) => {
             if (
               recommendation.sender.toLowerCase().includes(lowercaseQuery) ||
               recommendation.message.toLowerCase().includes(lowercaseQuery) ||
@@ -52,21 +81,6 @@ export const RecommendationsDirectory = () => {
             }
           });
         });
-      } else if (Array.isArray(recommendationsData[catKey])) {
-        // For categories without subcategories
-        recommendationsData[catKey].forEach((recommendation: any) => {
-          if (
-            recommendation.sender.toLowerCase().includes(lowercaseQuery) ||
-            recommendation.message.toLowerCase().includes(lowercaseQuery) ||
-            recommendation.date.toLowerCase().includes(lowercaseQuery)
-          ) {
-            results.push({
-              ...recommendation,
-              category: catKey,
-              subcategory: null
-            });
-          }
-        });
       }
     });
 
@@ -79,14 +93,13 @@ export const RecommendationsDirectory = () => {
     let count = 0;
     
     Object.keys(recommendationsData).forEach(catKey => {
-      if (typeof recommendationsData[catKey] === 'object' && !Array.isArray(recommendationsData[catKey])) {
-        // For categories with subcategories
-        Object.keys(recommendationsData[catKey]).forEach(subcatKey => {
-          count += recommendationsData[catKey][subcatKey].length;
+      const categoryData = (recommendationsData as RecommendationsData)[catKey];
+      if (Array.isArray(categoryData)) {
+        count += categoryData.length;
+      } else {
+        Object.keys(categoryData).forEach(subcatKey => {
+          count += categoryData[subcatKey].length;
         });
-      } else if (Array.isArray(recommendationsData[catKey])) {
-        // For categories without subcategories
-        count += recommendationsData[catKey].length;
       }
     });
     
@@ -107,7 +120,6 @@ export const RecommendationsDirectory = () => {
     if (subcategoriesData[categoryId] && subcategoriesData[categoryId].length > 0) {
       setSelectedSubcategory(subcategoriesData[categoryId][0].id);
     } else {
-      // Use empty string instead of null to avoid type errors
       setSelectedSubcategory('');
     }
   };
@@ -118,17 +130,17 @@ export const RecommendationsDirectory = () => {
       return searchResults;
     }
 
+    const categoryData = (recommendationsData as RecommendationsData)[selectedCategory];
     if (selectedCategory === 'other' || !subcategoriesData[selectedCategory]) {
-      return recommendationsData[selectedCategory] || [];
+      return Array.isArray(categoryData) ? categoryData : [];
     }
 
-    return (recommendationsData[selectedCategory] && 
-            recommendationsData[selectedCategory][selectedSubcategory]) || [];
+    return Array.isArray(categoryData) ? [] : (categoryData[selectedSubcategory] || []);
   };
 
   // Helper function to get category name
   const getCategoryName = (categoryId: string): string => {
-    const category = categoriesData.find((cat: any) => cat.id === categoryId);
+    const category = categoriesData.find(cat => cat.id === categoryId);
     return category ? category.name : 'Unknown Category';
   };
 
@@ -136,7 +148,7 @@ export const RecommendationsDirectory = () => {
   const getSubcategoryName = (categoryId: string, subcategoryId: string): string => {
     if (!subcategoriesData[categoryId]) return 'Unknown Subcategory';
     
-    const subcategory = subcategoriesData[categoryId].find((subcat: any) => subcat.id === subcategoryId);
+    const subcategory = subcategoriesData[categoryId].find(subcat => subcat.id === subcategoryId);
     return subcategory ? subcategory.name : 'Unknown Subcategory';
   };
 

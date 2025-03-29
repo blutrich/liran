@@ -1,31 +1,6 @@
 import React from 'react';
 import { RecommendationCard } from './RecommendationCard'
 
-// Temporary mock data
-const mockRecommendations = [
-  {
-    id: '1',
-    sender: 'לירן',
-    date: '2024-03-29',
-    content: 'אני ממליץ בחום על חברת "Fun Day" לימי כיף. עשינו איתם יום גיבוש מדהים שכלל פעילות ODT, סדנת בישול ומשחקי חברה. המחיר היה הוגן והצוות היה מקצועי ונעים.',
-    category: 'אירועים',
-  },
-  {
-    id: '2',
-    sender: 'מאיה',
-    date: '2024-03-28',
-    content: 'מישהו מכיר מרצה טוב/ה להרצאה על מנהיגות? אנחנו מחפשים מישהו שיכול להעביר סדנה של שעתיים למנהלים שלנו.',
-    category: 'הדרכה ופיתוח ארגוני',
-  },
-  {
-    id: '3',
-    sender: 'דוד',
-    date: '2024-03-27',
-    content: 'אנחנו משתמשים ב-Bamboo HR כבר שנתיים ומאוד מרוצים. המערכת אינטואיטיבית, התמיכה מעולה והמחיר סביר בהחלט.',
-    category: 'כלי HR',
-  },
-]
-
 interface Recommendation {
   id: number;
   date: string;

@@ -1,5 +1,34 @@
+interface Category {
+  id: string;
+  name: string;
+  icon: string;
+  color: string;
+}
+
+interface Subcategory {
+  id: string;
+  name: string;
+}
+
+interface Recommendation {
+  id: number;
+  date: string;
+  sender: string;
+  message: string;
+}
+
+type RecommendationsData = {
+  [key: string]: {
+    [key: string]: Recommendation[];
+  } | Recommendation[];
+};
+
+type SubcategoriesData = {
+  [key: string]: Subcategory[];
+};
+
 // Main categories for recommendations
-export const categoriesData = [
+export const categoriesData: Category[] = [
   { id: 'events', name: 'Event Planning & Venues', icon: '🎪', color: '#FF5722' },
   { id: 'food', name: 'Food & Catering', icon: '🍽️', color: '#FF9800' },
   { id: 'prof-services', name: 'Professional Services', icon: '💼', color: '#2196F3' },
@@ -14,7 +43,7 @@ export const categoriesData = [
 ];
 
 // Subcategories for recommendations
-export const subcategoriesData = {
+export const subcategoriesData: SubcategoriesData = {
   'events': [
     { id: 'venues', name: 'Venues & Locations' },
     { id: 'photographers', name: 'Photographers & Videographers' },
@@ -76,7 +105,7 @@ export const subcategoriesData = {
 };
 
 // Sample recommendations data - structured by category and subcategory
-export const recommendationsData = {
+export const recommendationsData: RecommendationsData = {
   'events': {
     'venues': [
       { id: 1, date: '24/11/2024', sender: '~ Michal Sidi', message: 'היי 🙂 המלצות לגג הכי שווה בתל אביב לאירוע?? רצוי עם נוף מהמם, לערב חברה - 40 איש 💞 תודה 😇ֿ' },

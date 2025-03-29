@@ -76,6 +76,18 @@ const keywordData = [
 
 const COLORS = ['#0088FE', '#00C49F', '#FFBB28', '#FF8042', '#a569bd', '#5dade2', '#ec7063'];
 
+const chartData = {
+  labels: ['Jan', 'Feb', 'Mar', 'Apr', 'May', 'Jun', 'Jul', 'Aug', 'Sep', 'Oct', 'Nov', 'Dec'],
+  datasets: [
+    {
+      label: 'Recommendations',
+      data: [12, 19, 3, 5, 2, 3, 7, 8, 9, 10, 11, 12],
+      borderColor: 'rgb(75, 192, 192)',
+      tension: 0.1
+    }
+  ]
+};
+
 export function CommunityDashboard() {
   return (
     <div className="space-y-4">
