@@ -4,7 +4,7 @@ import { SubcategoryList } from "./SubcategoryList";
 import { SearchBar } from "./SearchBar";
 import { RecommendationsList } from "./RecommendationsList";
 import { categoriesData, subcategoriesData, recommendationsData } from "./data";
-import type { Category, Subcategory, Recommendation } from "./data";
+import type { Subcategory, Recommendation } from "./data";
 
 export const RecommendationsDirectory = () => {
   const [selectedCategory, setSelectedCategory] = useState<string>("");
