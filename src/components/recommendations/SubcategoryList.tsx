@@ -8,17 +8,17 @@ interface SubcategoryListProps {
 
 export const SubcategoryList = ({ subcategories, selectedSubcategory, onSubcategorySelect }: SubcategoryListProps) => {
   return (
-    <div className="bg-white rounded-lg shadow p-4 mt-4">
-      <h3 className="text-lg font-medium text-gray-900 mb-4">תתי קטגוריות</h3>
-      <ul className="space-y-2">
+    <div className="bg-white rounded-lg shadow-sm overflow-hidden">
+      <h3 className="text-lg font-medium text-gray-900 px-4 py-3 border-b border-gray-200">תתי קטגוריות</h3>
+      <ul className="divide-y divide-gray-200">
         {subcategories.map((subcategory) => (
           <li key={subcategory.id}>
             <button
               onClick={() => onSubcategorySelect(subcategory.id)}
-              className={`w-full text-right px-4 py-2 rounded-md text-sm font-medium ${
+              className={`w-full text-right px-4 py-3 text-sm font-medium transition-colors duration-150 ${
                 selectedSubcategory === subcategory.id
-                  ? "bg-blue-100 text-blue-700"
-                  : "text-gray-700 hover:bg-gray-100"
+                  ? 'bg-blue-50 text-blue-700'
+                  : 'text-gray-700 hover:bg-gray-50 active:bg-gray-100'
               }`}
             >
               {subcategory.name}

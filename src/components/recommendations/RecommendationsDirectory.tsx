@@ -54,33 +54,35 @@ export const RecommendationsDirectory = () => {
   };
 
   return (
-    <div className="container mx-auto px-4 py-8">
-      <div className="mb-8">
-        <SearchBar value={searchQuery} onChange={handleSearch} />
-      </div>
-      
-      <div className="grid grid-cols-1 md:grid-cols-4 gap-6">
-        <div className="md:col-span-1">
-          <CategoryList
-            categories={categoriesData}
-            selectedCategory={selectedCategory}
-            onCategorySelect={handleCategorySelect}
-          />
-          
-          {selectedCategory && (
-            <SubcategoryList
-              subcategories={getSubcategoriesForCategory(selectedCategory)}
-              selectedSubcategory={selectedSubcategory}
-              onSubcategorySelect={handleSubcategorySelect}
-            />
-          )}
+    <div className="min-h-screen bg-gray-50">
+      <div className="max-w-7xl mx-auto px-4 sm:px-6 lg:px-8 py-4 sm:py-6">
+        <div className="mb-4 sm:mb-6">
+          <SearchBar value={searchQuery} onChange={handleSearch} />
         </div>
         
-        <div className="md:col-span-3">
-          <RecommendationsList
-            recommendations={getFilteredRecommendations()}
-            isSearching={isSearching}
-          />
+        <div className="flex flex-col lg:flex-row gap-4 sm:gap-6">
+          <div className="lg:w-64 space-y-4">
+            <CategoryList
+              categories={categoriesData}
+              selectedCategory={selectedCategory}
+              onCategorySelect={handleCategorySelect}
+            />
+            
+            {selectedCategory && (
+              <SubcategoryList
+                subcategories={getSubcategoriesForCategory(selectedCategory)}
+                selectedSubcategory={selectedSubcategory}
+                onSubcategorySelect={handleSubcategorySelect}
+              />
+            )}
+          </div>
+          
+          <div className="flex-1">
+            <RecommendationsList
+              recommendations={getFilteredRecommendations()}
+              isSearching={isSearching}
+            />
+          </div>
         </div>
       </div>
     </div>
