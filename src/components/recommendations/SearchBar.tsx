@@ -1,44 +1,24 @@
-import React from 'react';
+import { Search } from "lucide-react";
 
 interface SearchBarProps {
-  searchQuery: string;
-  setSearchQuery: (query: string) => void;
-  onSearch: (query: string) => void;
-  onClear: () => void;
+  value: string;
+  onChange: (value: string) => void;
+  placeholder?: string;
 }
 
-export const SearchBar = ({ searchQuery, setSearchQuery, onSearch, onClear }: SearchBarProps) => {
-  const handleSubmit = (e: React.FormEvent) => {
-    e.preventDefault();
-    onSearch(searchQuery);
-  };
-
+export const SearchBar = ({ value, onChange, placeholder = "חיפוש המלצות..." }: SearchBarProps) => {
   return (
-    <form onSubmit={handleSubmit} className="relative">
+    <div className="relative">
       <input
         type="text"
-        value={searchQuery}
-        onChange={(e) => setSearchQuery(e.target.value)}
-        placeholder="חיפוש המלצות..."
-        className="w-full px-4 py-2 text-right border border-gray-300 rounded-md focus:outline-none focus:ring-2 focus:ring-blue-500 focus:border-transparent text-sm sm:text-base"
+        value={value}
+        onChange={(e) => onChange(e.target.value)}
+        placeholder={placeholder}
+        className="w-full px-4 py-2 pr-10 border border-gray-300 rounded-md focus:outline-none focus:ring-2 focus:ring-blue-500 focus:border-transparent"
       />
-      {searchQuery && (
-        <button
-          type="button"
-          onClick={onClear}
-          className="absolute left-3 top-1/2 transform -translate-y-1/2 text-gray-400 hover:text-gray-600 p-1"
-          aria-label="Clear search"
-        >
-          ✕
-        </button>
-      )}
-      <button
-        type="submit"
-        className="absolute right-3 top-1/2 transform -translate-y-1/2 text-gray-400 hover:text-gray-600 p-1"
-        aria-label="Search"
-      >
-        🔍
-      </button>
-    </form>
+      <div className="absolute inset-y-0 right-0 flex items-center pr-3">
+        <Search className="h-5 w-5 text-gray-400" />
+      </div>
+    </div>
   );
-}; 
+};

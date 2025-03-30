@@ -1,4 +1,4 @@
-import { Category } from './data';
+import { Category } from "./data";
 
 interface CategoryListProps {
   categories: Category[];
@@ -17,8 +17,8 @@ export const CategoryList = ({ categories, selectedCategory, onCategorySelect }:
               onClick={() => onCategorySelect(category.id)}
               className={`w-full text-right px-4 py-2 rounded-md text-sm font-medium ${
                 selectedCategory === category.id
-                  ? 'bg-blue-100 text-blue-700'
-                  : 'text-gray-700 hover:bg-gray-100'
+                  ? "bg-blue-100 text-blue-700"
+                  : "text-gray-700 hover:bg-gray-100"
               }`}
             >
               {category.name}
@@ -28,4 +28,4 @@ export const CategoryList = ({ categories, selectedCategory, onCategorySelect }:
       </ul>
     </div>
   );
-}; 
+};

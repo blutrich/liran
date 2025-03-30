@@ -1,8 +1,6 @@
 export interface Category {
   id: string;
   name: string;
-  icon: string;
-  color: string;
 }
 
 export interface Subcategory {
@@ -22,44 +20,36 @@ export interface Recommendation {
 export type RecommendationsData = {
   [key: string]: {
     [key: string]: Recommendation[];
-  } | Recommendation[];
+  };
+};
+
+export type SubcategoriesData = {
+  [key: string]: Subcategory[];
 };
 
 export const categoriesData: Category[] = [
-  { id: 'events', name: 'אירועים', icon: '🎉', color: '#FF6B6B' },
-  { id: 'resources', name: 'משאבים ושירותים', icon: '📚', color: '#4ECDC4' },
-  { id: 'benefits', name: 'רווחה והטבות', icon: '🎁', color: '#45B7D1' },
-  { id: 'salary', name: 'שכר ותגמול', icon: '💰', color: '#96CEB4' },
-  { id: 'jobs', name: 'הזדמנויות תעסוקה', icon: '💼', color: '#FFEEAD' },
-  { id: 'other', name: 'אחר', icon: '📌', color: '#D4A5A5' },
+  { id: 'events', name: 'אירועים' },
+  { id: 'restaurants', name: 'מסעדות' },
+  { id: 'activities', name: 'פעילויות' },
+  { id: 'other', name: 'אחר' }
 ];
 
-export const subcategoriesData: { [key: string]: Subcategory[] } = {
+export const subcategoriesData: SubcategoriesData = {
   events: [
     { id: 'venues', name: 'מקומות' },
-    { id: 'activities', name: 'פעילויות' },
-    { id: 'workshops', name: 'סדנאות' },
+    { id: 'catering', name: 'קייטרינג' },
+    { id: 'entertainment', name: 'בידור' }
   ],
-  resources: [
-    { id: 'tools', name: 'כלים' },
-    { id: 'services', name: 'שירותים' },
-    { id: 'platforms', name: 'פלטפורמות' },
+  restaurants: [
+    { id: 'casual', name: 'מסעדות רגילות' },
+    { id: 'fine-dining', name: 'מסעדות יוקרה' },
+    { id: 'cafes', name: 'קפה' }
   ],
-  benefits: [
-    { id: 'wellness', name: 'רווחה' },
-    { id: 'perks', name: 'הטבות' },
-    { id: 'programs', name: 'תוכניות' },
-  ],
-  salary: [
-    { id: 'compensation', name: 'תגמול' },
-    { id: 'bonuses', name: 'בונוסים' },
-    { id: 'raises', name: 'העלאות' },
-  ],
-  jobs: [
-    { id: 'positions', name: 'משרות' },
-    { id: 'recruiters', name: 'מגייסים' },
-    { id: 'companies', name: 'חברות' },
-  ],
+  activities: [
+    { id: 'outdoor', name: 'פעילויות חוץ' },
+    { id: 'indoor', name: 'פעילויות פנים' },
+    { id: 'sports', name: 'ספורט' }
+  ]
 };
 
 export const recommendationsData: RecommendationsData = {
@@ -67,154 +57,88 @@ export const recommendationsData: RecommendationsData = {
     venues: [
       {
         id: 1,
-        date: '2024-04-15',
-        sender: 'לירן וולף',
-        message: 'ממליץ על מקום נהדר לאירועי צוות - "הגן הקסום" בתל אביב. יש להם חלל גדול, אוכל טוב, ואפשרות לפעילויות גיבוש.',
-      },
-      // Add more recommendations as needed
+        date: '2024-03-15',
+        sender: 'דנה כהן',
+        message: 'מקום נהדר לאירועים - גן אירועים ירוק עם נוף מדהים'
+      }
     ],
-    activities: [
+    catering: [
       {
         id: 2,
-        date: '2024-04-16',
-        sender: 'תומר ממן',
-        message: 'היה לנו אירוע גיבוש מעולה עם חברת "משחקים ביחד". הם מספקים משחקי חברה ופעילויות גיבוש מהנות.',
-      },
-      // Add more recommendations as needed
+        date: '2024-03-14',
+        sender: 'יוסי לוי',
+        message: 'קייטרינג מעולה עם תפריט מגוון ומחירים הוגנים'
+      }
     ],
-    workshops: [
+    entertainment: [
       {
         id: 3,
-        date: '2024-04-17',
-        sender: 'אופיר',
-        message: 'השתתפתי בסדנת מדיטציה מעולה עם מיכל כהן. מומלץ בחום לאירועי רווחה לעובדים.',
-      },
-      // Add more recommendations as needed
-    ],
+        date: '2024-03-13',
+        sender: 'מירי שרון',
+        message: 'להקת הבידור הייתה מצוינת, כולם נהנו מאוד'
+      }
+    ]
   },
-  resources: {
-    tools: [
+  restaurants: {
+    'casual': [
       {
         id: 4,
-        date: '2024-04-18',
-        sender: 'Dana',
-        message: 'ממליצה על כלי ניהול משימות מעולה - Monday.com. עוזר מאוד בניהול פרויקטים ועמידה בלוחות זמנים.',
-      },
-      // Add more recommendations as needed
+        date: '2024-03-12',
+        sender: 'אבי דהן',
+        message: 'מסעדה נחמדה עם אוכל טעים ומחירים סבירים'
+      }
     ],
-    services: [
+    'fine-dining': [
       {
         id: 5,
-        date: '2024-04-19',
-        sender: 'Yv',
-        message: 'תמשנו בשירותי הדרכה של "מפתחים יחד" - מקצועיים מאוד ומחירים הוגנים.',
-      },
-      // Add more recommendations as needed
+        date: '2024-03-11',
+        sender: 'רונית גולן',
+        message: 'חוויה קולינרית ייחודית, מומלץ בחום'
+      }
     ],
-    platforms: [
+    'cafes': [
       {
         id: 6,
-        date: '2024-04-20',
-        sender: 'שירה בורנשטיין',
-        message: 'ממליצה על פלטפורמת למידה - Udemy. יש שם קורסים מעולים במחירים טובים.',
-      },
-      // Add more recommendations as needed
-    ],
+        date: '2024-03-10',
+        sender: 'דוד ישראלי',
+        message: 'קפה מעולה עם עוגות טעימות'
+      }
+    ]
   },
-  benefits: {
-    wellness: [
+  activities: {
+    outdoor: [
       {
         id: 7,
-        date: '2024-04-21',
-        sender: 'לירן וולף',
-        message: 'חברתנו משתמשת בשירותי רווחה של "בריאות פלוס". הם מספקים תוכנית רווחה מקיפה לעובדים.',
-      },
-      // Add more recommendations as needed
+        date: '2024-03-09',
+        sender: 'שירה אברהם',
+        message: 'טיול נהדר בטבע, מדריך מקצועי'
+      }
     ],
-    perks: [
+    indoor: [
       {
         id: 8,
-        date: '2024-04-22',
-        sender: 'תומר ממן',
-        message: 'ממליץ על תוכנית הטבות של "כל הטוב". יש להם מבחר גדול של הטבות במחירים טובים.',
-      },
-      // Add more recommendations as needed
+        date: '2024-03-08',
+        sender: 'אלון ברק',
+        message: 'חדר בריחה מאתגר ומהנה'
+      }
     ],
-    programs: [
+    sports: [
       {
         id: 9,
-        date: '2024-04-23',
-        sender: 'אופיר',
-        message: 'השתתפתי בתוכנית רווחה של "מפתחים יחד". מאוד מרוצה מהתוצאות.',
-      },
-      // Add more recommendations as needed
-    ],
+        date: '2024-03-07',
+        sender: 'נועה דרור',
+        message: 'שיעור יוגה מעולה, מדריכה מקצועית'
+      }
+    ]
   },
-  salary: {
-    compensation: [
+  other: {
+    general: [
       {
         id: 10,
-        date: '2024-04-24',
-        sender: 'Dana',
-        message: 'ממליצה על יועץ שכר מעולה - דוד כהן. עזר לנו מאוד בהגדרת מבנה שכר הוגן.',
-      },
-      // Add more recommendations as needed
-    ],
-    bonuses: [
-      {
-        id: 11,
-        date: '2024-04-25',
-        sender: 'Yv',
-        message: 'תמשנו במערכת בונוסים של "תגמול פלוס". מערכת נוחה ויעילה.',
-      },
-      // Add more recommendations as needed
-    ],
-    raises: [
-      {
-        id: 12,
-        date: '2024-04-26',
-        sender: 'שירה בורנשטיין',
-        message: 'ממליצה על מדריך העלאות שכר של "HR פלוס". עזר לנו מאוד בתהליך.',
-      },
-      // Add more recommendations as needed
-    ],
-  },
-  jobs: {
-    positions: [
-      {
-        id: 13,
-        date: '2024-04-27',
-        sender: 'לירן וולף',
-        message: 'מחפשת מפתח/ת Full Stack מנוסה/ים. תנאים מעולים והזדמנות לצמיחה.',
-      },
-      // Add more recommendations as needed
-    ],
-    recruiters: [
-      {
-        id: 14,
-        date: '2024-04-28',
-        sender: 'תומר ממן',
-        message: 'ממליץ על חברת גיוס מעולה - "מגייסים יחד". עזרו לנו למצוא את המועמדים הטובים ביותר.',
-      },
-      // Add more recommendations as needed
-    ],
-    companies: [
-      {
-        id: 15,
-        date: '2024-04-29',
-        sender: 'אופיר',
-        message: 'חברת "טכנולוגיה פלוס" מחפשת אנשי HR. סביבת עבודה מעולה ותנאים טובים.',
-      },
-      // Add more recommendations as needed
-    ],
-  },
-  other: [
-    {
-      id: 16,
-      date: '2024-04-30',
-      sender: 'Dana',
-      message: 'ממליצה על ספר מעולה בנושא ניהול משאבי אנוש - "HR מנצח" מאת ד"ר רונית כהן.',
-    },
-    // Add more recommendations as needed
-  ],
+        date: '2024-03-06',
+        sender: 'עידן כהן',
+        message: 'שירות מעולה, ממליץ בחום'
+      }
+    ]
+  }
 };

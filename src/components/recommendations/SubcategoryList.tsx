@@ -1,4 +1,4 @@
-import { Subcategory } from './data';
+import { Subcategory } from "./data";
 
 interface SubcategoryListProps {
   subcategories: Subcategory[];
@@ -17,8 +17,8 @@ export const SubcategoryList = ({ subcategories, selectedSubcategory, onSubcateg
               onClick={() => onSubcategorySelect(subcategory.id)}
               className={`w-full text-right px-4 py-2 rounded-md text-sm font-medium ${
                 selectedSubcategory === subcategory.id
-                  ? 'bg-blue-100 text-blue-700'
-                  : 'text-gray-700 hover:bg-gray-100'
+                  ? "bg-blue-100 text-blue-700"
+                  : "text-gray-700 hover:bg-gray-100"
               }`}
             >
               {subcategory.name}
@@ -28,4 +28,4 @@ export const SubcategoryList = ({ subcategories, selectedSubcategory, onSubcateg
       </ul>
     </div>
   );
-}; 
+};
